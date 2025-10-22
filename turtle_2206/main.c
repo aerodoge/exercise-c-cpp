@@ -121,6 +121,7 @@ void print_board() {
         printf("\n");
     }
 }
+
 // 打印移动历史
 void print_moves() {
     printf("\n移动轨迹:\n");
@@ -136,6 +137,7 @@ void toggle_pen(Turtle *turtle) {
            turtle->pen_down ? "放下 (画)" : "抬起 (不画)");
 }
 
+// 打印帮助信息
 void print_help() {
     printf("\n命令:\n");
     printf("W/w - 上移1步\n");
