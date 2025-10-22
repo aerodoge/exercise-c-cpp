@@ -213,7 +213,7 @@ int main() {
         show_seats(seats, 10);
         int class_choice = 0;
         int seat_num = 0;
-        if (!safe_input_int("请选择等级 (1-头等舱, 2-经济舱, 3-退出):",
+        if (!safe_input_int("请选择 (1-头等舱, 2-经济舱, 3-退出):",
                             &class_choice)) {
             continue;
         }
