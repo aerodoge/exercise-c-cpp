@@ -92,23 +92,24 @@ int sell_ticket(int seats[], const ClassType type) {
     int seat_num = 0; // 座位号
     if (choice == 1) {
         // 自选
-        int input = 0;
+        int input = 0; // 用户输入的座位号
         if (!safe_input_int("请输入座位号:", &input)) {
             return 0;
         }
-        if (!check_seat_num(input, type)) { // 用户选择的座位号错误
+        if (!check_seat_num(input, type)) {
+            // 用户选择的座位号错误
             return 0;
         }
-        seat_num = input;
-        seats[input - 1] = 1; // 座位已被选择，置1
+        seat_num = input;     // 用户选择有效，赋给seat_num
+        seats[input - 1] = 1; // 座位已被选择，数组对应位置置1
     } else {
         // 系统分配
         switch (type) {
         case CLASS_FIRST: // 头等舱
             for (int i = 0; i < 5; i++) {
-                if (seats[i] == 0) {
-                    seat_num = i + 1;
-                    seats[seat_num - 1] = 1;
+                if (seats[i] == 0) {         // 座位可选
+                    seat_num = i + 1;        // 座位号：数组下标加1
+                    seats[seat_num - 1] = 1; // 数组中对应位置置1
                     break;
                 }
             }
