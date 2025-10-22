@@ -1,16 +1,5 @@
 #include <stdio.h>
 
-/*
-*   原因：
-  - 当输入非数字字符（如'q'）时，scanf("%d", &variable) 无法读取，返回0
-  - 非数字字符留在输入缓冲区中，导致下次 scanf 继续尝试读取同一个字符
-  - 这形成了无限循环，程序一直尝试读取相同的无效字符
-
-  解决方案：
-  - 检查 scanf 的返回值，如果返回值不等于1，说明读取失败
-  - 当读取失败时，使用 getchar() 清空输入缓冲区直到遇到换行符
-  - 显示错误信息并继续程序流程
- */
 // 功能：安全读取整数输入
 // 参数：
 //    prompt：提示信息
@@ -69,9 +58,7 @@ int economy_full(const int seats[]) {
 // 功能：判断是否全部满座
 // 参数：座位数组
 // 返回值：0-没满，1-满
-int seats_full(int seats[]) {
-    return first_class_full(seats) && economy_full(seats);
-}
+int seats_full(int seats[]) { return first_class_full(seats) && economy_full(seats); }
 
 // 功能：检查用户自选座位号
 // 参数：
@@ -92,12 +79,10 @@ int check_seat_num(const int seat_num, const ClassType type) {
 // 参数：
 //    seats: 座位数组
 //    type: 1-头等舱，2-经济舱
-// 返回值：
-//    座位号：大于0有效，等于0无效
+// 返回值：座位号
 int sell_ticket(int seats[], const ClassType type) {
     int choice = -1;
-    if (!safe_input_int("您是自选还是系统分配 (0-系统分配, 1-自选):",
-                        &choice)) {
+    if (!safe_input_int("您是自选还是系统分配 (0-系统分配, 1-自选):", &choice)) {
         return 0;
     }
     if (choice != 1 && choice != 0) {
@@ -145,14 +130,13 @@ int sell_ticket(int seats[], const ClassType type) {
 
 // 功能：处理头等舱
 // 参数：座位数组
-// 返回值：座位号，0-无效，大于0有效
+// 返回值：座位号
 int handle_first_class(int seats[]) {
     int seat_num = 0;
     if (first_class_full(seats)) {
         // 头等舱满座
         int choice = -1;
-        if (!safe_input_int("头等舱已满，您是否选择经济仓（0-不选择, 1-选择）:",
-                            &choice)) {
+        if (!safe_input_int("头等舱已满，您是否选择经济仓（0-不选择, 1-选择）:", &choice)) {
             return seat_num;
         }
         if (choice != 1 && choice != 0) {
@@ -174,14 +158,13 @@ int handle_first_class(int seats[]) {
 
 // 功能：处理经济仓
 // 参数：座位数组
-// 返回值：座位号，0-无效，1-有效
+// 返回值：座位号
 int handle_economy(int seats[]) {
     int seat_num = 0;
     if (economy_full(seats)) {
         // 经济舱满座
         int choice = -1;
-        if (!safe_input_int("经济舱已满,您是否选择头等舱 (0-不选择,1-选择):",
-                            &choice)) {
+        if (!safe_input_int("经济舱已满,您是否选择头等舱 (0-不选择,1-选择):", &choice)) {
             return seat_num;
         }
         if (choice != 1 && choice != 0) {
@@ -194,7 +177,7 @@ int handle_economy(int seats[]) {
             seat_num = sell_ticket(seats, CLASS_FIRST);
         }
     } else {
-        // 头等舱有位置
+        // 经济舱有位置
         seat_num = sell_ticket(seats, CLASS_ECONOMY);
     }
 
@@ -210,14 +193,16 @@ int main() {
             printf("非常抱歉, 本次航班已售完, 下次航班3小时之后起飞!\n");
             return 0;
         }
+        // 打印座位信息
         show_seats(seats, 10);
-        int class_choice = 0;
+        // 用户的选择
+        int choice = 0;
+        // 机票座位号
         int seat_num = 0;
-        if (!safe_input_int("请选择 (1-头等舱, 2-经济舱, 3-退出):",
-                            &class_choice)) {
+        if (!safe_input_int("请选择 (1-头等舱, 2-经济舱, 3-退出):", &choice)) {
             continue;
         }
-        switch (class_choice) {
+        switch (choice) {
         case 1:
             // 用户选头等舱
             seat_num = handle_first_class(seats);
@@ -233,12 +218,14 @@ int main() {
             printf("无效的选择, 请重新选择\n");
             continue;
         }
-        if (seat_num > 0) {
+        if (seat_num >= 1 && seat_num <= 10) {
+            // 座位号大于0(1-10号)出票成功，打印机票信息
             printf(" -------------------------------------\n");
-            printf("| 您的登记证, 等级: %s, 座位号: %d |\n",
-                   class_choice == 1 ? "头等舱" : "经济舱", seat_num);
+            printf("| 您的登记证, 等级: %s, 座位号: %d |\n", choice == 1 ? "头等舱" : "经济舱",
+                   seat_num);
             printf(" -------------------------------------\n");
         } else {
+            // 出票失败，让用户再次选择
             printf("出票失败, 请重新选择!\n");
         }
     }
