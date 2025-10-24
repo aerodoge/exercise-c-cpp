@@ -58,7 +58,7 @@ int economy_full(const int seats[]) {
 // 功能：判断是否全部满座
 // 参数：座位数组
 // 返回值：0-没满，1-满
-int seats_full(int seats[]) { return first_class_full(seats) && economy_full(seats); }
+int seats_full(const int seats[]) { return first_class_full(seats) && economy_full(seats); }
 
 // 功能：检查用户自选座位号
 // 参数：
