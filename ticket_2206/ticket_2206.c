@@ -65,12 +65,29 @@ int seats_full(const int seats[]) { return first_class_full(seats) && economy_fu
 //    seat_num：座位号
 //    type：等级
 // 返回值：0-无效，1-有效
-int check_seat_num(const int seat_num, const ClassType type) {
+int check_seat_num(const int seats[], const int seat_num, const ClassType type) {
     switch (type) {
     case CLASS_FIRST:
-        return (seat_num >= 1) && (seat_num <= 5);
+        if (seat_num > 5) {
+            printf("您选择的不是头等舱!\n");
+            return 0;
+        }
+        if (seats[seat_num - 1]) {
+            // 座位已经选择
+            printf("座位已被选择!\n");
+            return 0;
+        }
+        return 1;
     case CLASS_ECONOMY:
-        return (seat_num >= 6) && (seat_num <= 10);
+        if (seat_num < 6) {
+            printf("您选择的不是经济舱!\n");
+            return 0;
+        }
+        if (seats[seat_num - 1]) {
+            printf("座位已被选择!\n");
+            return 0;
+        }
+        return 1;
     }
     return 0;
 }
@@ -96,7 +113,7 @@ int sell_ticket(int seats[], const ClassType type) {
         if (!safe_input_int("请输入座位号:", &input)) {
             return 0;
         }
-        if (!check_seat_num(input, type)) {
+        if (!check_seat_num(seats, input, type)) {
             // 用户选择的座位号错误
             return 0;
         }
