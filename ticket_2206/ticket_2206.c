@@ -31,7 +31,7 @@ void show_seats(const int seats[], int size) {
     }
 }
 
-// 功能：判断头等仓满座
+// 功能：判断头等舱满座
 // 参数：座位数组
 // 返回值：0-没满，1-满
 int first_class_full(const int seats[]) {
@@ -43,7 +43,7 @@ int first_class_full(const int seats[]) {
     return 1;
 }
 
-// 功能：判断经济仓满座
+// 功能：判断经济舱满座
 // 参数：座位数组
 // 返回值：0-没满，1-满
 int economy_full(const int seats[]) {
@@ -137,16 +137,16 @@ int handle_first_class(int seats[]) {
     if (first_class_full(seats)) {
         // 头等舱满座
         int choice = -1;
-        if (!safe_input_int("头等舱已满，您是否选择经济仓（0-不选择, 1-选择）:", &choice)) {
+        if (!safe_input_int("头等舱已满，您是否选择经济舱（0-不选择, 1-选择）:", &choice)) {
             return seat_num;
         }
         if (choice != 1 && choice != 0) {
             printf("选择错误, 请输入0或1\n");
             return seat_num;
         }
-        if (choice == 1) { // 选经济仓
+        if (choice == 1) { // 选经济舱
             // 这里不用判断经济舱是否满，因为每轮开头会判断所有座位是否满
-            // 如果头等舱满，经济仓一定有座位
+            // 如果头等舱满，经济舱一定有座位
             seat_num = sell_ticket(seats, CLASS_ECONOMY);
         }
     } else {
@@ -157,7 +157,7 @@ int handle_first_class(int seats[]) {
     return seat_num;
 }
 
-// 功能：处理经济仓
+// 功能：处理经济舱
 // 参数：座位数组
 // 返回值：座位号
 int handle_economy(int seats[]) {
@@ -209,7 +209,7 @@ int main() {
             seat_num = handle_first_class(seats);
             break;
         case 2:
-            // 用户选经济仓
+            // 用户选经济舱
             seat_num = handle_economy(seats);
             break;
         case 3:
