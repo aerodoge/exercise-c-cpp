@@ -128,12 +128,11 @@ int b = a * 2;    // 指令3：依赖指令1
 
 ## 性能对比和选择建议
 ```c++
-         // 性能从高到低：
-         // relaxed > consume > acquire/release > acq_rel > seq_cst
+// 性能从高到低：
+// relaxed > consume > acquire/release > acq_rel > seq_cst
 
-         // 选择指南：
-         std::atomic<int>
-             counter{0};
+// 选择指南：
+std::atomic<int> counter{0};
 
 // 简单计数器：使用relaxed
 counter.fetch_add(1, std::memory_order_relaxed);
