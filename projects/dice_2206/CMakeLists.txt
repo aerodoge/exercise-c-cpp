@@ -3,4 +3,4 @@ project(dice_2206 C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(dice_2206 dice_2206.c)
+add_executable(dice dice.c)
