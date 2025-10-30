@@ -1,15 +1,16 @@
 // 骑士之旅
 #include "knight_tour.h"
 
-
 // 构造函数
-Position::Position(const int x, const int y) : _x(x), _y(y) { }
+Position::Position(const int x, const int y) : _x(x), _y(y) {}
 
 // 打印位置
-void Position::print() const { std::cout << "(" << _x << "," << _y << ")" << std::endl; }
+void Position::print() const {
+    std::cout << "(" << _x << "," << _y << ")" << std::endl;
+}
 
 // 构造函数
-Knight::Knight(const int x, const int y) : _position(x, y) { }
+Knight::Knight(const int x, const int y) : _position(x, y) {}
 
 // 打印骑士位置
 void Knight::print_position() const { _position.print(); }
@@ -62,34 +63,50 @@ void Knight::right_down() {
     _position._y++;
 }
 
-
 // 骑士之旅构造函数
 KnightTour::KnightTour(const int x, const int y) : _knight(x, y) {
     // 初始化棋盘为0
-    for (auto & i : _board) {
-        for (int & j : i) {
-            j = 0;
+    // for (auto & arr : _board) {
+    //     for (int & j : arr) {
+    //         j = 0;
+    //     }
+    // }
+}
+
+// 无参构造函数
+KnightTour::KnightTour() {}
+
+// 打印棋盘
+void KnightTour::print_board() {
+    for (int (&arr)[8] : _board) {
+        for (const int j : arr) {
+            if (j == 0) {
+                std::cout << " . ";
+            } else {
+                printf("%02d ", j);
+            }
         }
+        std::cout << std::endl;
     }
 }
 
 // 边界检查
-bool KnightTour::is_valid_position(const int x, const int y) const {
+bool KnightTour::valid_position(const int x, const int y) const {
     return x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE;
 }
 
-// 位置是否未被访问
-bool KnightTour::is_safe(const int x, const int y) const {
-    return is_valid_position(x, y) && _board[x][y] == 0;
+// 能走该位置
+bool KnightTour::can_visit(const int x, const int y) const {
+    return valid_position(x, y) && _board[x][y] == 0;
 }
 
 // 求解骑士之旅
-bool KnightTour::solve_tour(const int x, const int y, const int move_count) {
+bool KnightTour::solve_tour(const int x, const int y, const int steps) {
     // 标记当前位置
-    _board[x][y] = move_count;
+    _board[x][y] = steps;
 
     // 如果所有格子都被访问，成功
-    if (move_count == BOARD_SIZE * BOARD_SIZE) {
+    if (steps == BOARD_SIZE * BOARD_SIZE) {
         return true;
     }
 
@@ -102,15 +119,16 @@ bool KnightTour::solve_tour(const int x, const int y, const int move_count) {
         int next_x = x + dx[i];
         int next_y = y + dy[i];
 
-        if (is_safe(next_x, next_y)) {
-            if (solve_tour(next_x, next_y, move_count + 1)) {
+        if (can_visit(next_x, next_y)) {
+            if (solve_tour(next_x, next_y, steps + 1)) {
                 return true;
             }
         }
     }
 
-    // 回溯：撤销当前移动
+    // 撤销当前移动
     _board[x][y] = 0;
+
     return false;
 }
 

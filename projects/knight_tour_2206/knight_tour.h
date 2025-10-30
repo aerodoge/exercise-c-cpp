@@ -2,9 +2,8 @@
 #ifndef KNIGHT_TOUR_KNIGHT_H
 #define KNIGHT_TOUR_KNIGHT_H
 
-
-#include <iostream>
 #include <cstdio>
+#include <iostream>
 
 // 位置
 struct Position {
@@ -18,10 +17,11 @@ struct Position {
 };
 
 // 骑士
-class Knight
-{
-public:
+class Knight {
+  public:
+    // 构造函数
     Knight(const int x, const int y);
+    // 打印位置
     void print_position() const;
     // 上走2格，左走1格
     void up_left();
@@ -39,45 +39,34 @@ public:
     void right_up();
     // 右走2格，下走1格
     void right_down();
-private:
+
+  private:
     Position _position;
 };
 
 // 骑士之旅
 class KnightTour {
-public:
-    static constexpr int BOARD_SIZE = 8;
-
+  public:
+    // 构造函数
     KnightTour(const int x, const int y);
-
-    void print_board() {
-        for (auto & i : _board) {
-            for (const int j : i) {
-                if (j == 0) {
-                    std::cout << " . ";
-                } else {
-                    printf("%02d ", j);
-                }
-            }
-            std::cout << std::endl;
-        }
-    }
-
+    // 无参构造函数
+    KnightTour();
+    // 打印棋盘
+    void print_board();
     // 边界检查
-    bool is_valid_position(const int x, const int y) const;
-
-    // 位置是否未被访问
-    bool is_safe(const int x, const int y) const;
-
+    bool valid_position(const int x, const int y) const;
+    // 能走该位置
+    bool can_visit(const int x, const int y) const;
     // 求解骑士之旅
-    bool solve_tour(const int x, const int y, const int move_count);
-
+    bool solve_tour(const int x, const int y, const int steps);
+    // 开始
     void start();
 
-private:
+    static constexpr int BOARD_SIZE = 8;
+
+  private:
     int _board[BOARD_SIZE][BOARD_SIZE]{};
-    Knight _knight;
+    Knight _knight{0, 0};
 };
 
-
-#endif //KNIGHT_TOUR_KNIGHT_H
+#endif // KNIGHT_TOUR_KNIGHT_H

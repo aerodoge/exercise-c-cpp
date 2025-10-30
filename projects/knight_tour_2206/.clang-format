@@ -1,0 +1,26 @@
+# 基础配置
+BasedOnStyle: LLVM  # 或者 Google, Chromium, Mozilla, WebKit
+
+# 大括号相关配置
+Cpp11BracedListStyle: true  # 使用C++11风格的大括号列表
+
+# 大括号换行风格
+BreakBeforeBraces: Attach   # 选项：Attach, Linux, Mozilla, Stroustrup, Allman, GNU, WebKit, Custom
+
+# 空格配置
+SpaceBeforeCpp11BracedList: false  # 大括号前不加空格：vector<int>{1,2,3}
+SpacesInContainerLiterals: true    # 容器字面量内加空格：{1, 2, 3}
+
+# 对齐配置
+AlignConsecutiveDeclarations: false  # 是否对齐连续声明
+AlignConsecutiveAssignments: false   # 是否对齐连续赋值
+
+# 列宽限制
+ColumnLimit: 80  # 每行最大字符数
+
+# 缩进配置
+IndentWidth: 4                    # 缩进宽度
+UseTab: Never                     # 不使用Tab
+
+
+
