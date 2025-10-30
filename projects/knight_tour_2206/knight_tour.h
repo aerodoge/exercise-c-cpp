@@ -52,7 +52,7 @@ class KnightTour {
     // 无参构造函数
     KnightTour();
     // 打印棋盘
-    void print_board();
+    void print_board() const;
     // 边界检查
     bool valid_position(const int x, const int y) const;
     // 能走该位置

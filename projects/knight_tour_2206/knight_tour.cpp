@@ -77,8 +77,8 @@ KnightTour::KnightTour(const int x, const int y) : _knight(x, y) {
 KnightTour::KnightTour() {}
 
 // 打印棋盘
-void KnightTour::print_board() {
-    for (int (&arr)[8] : _board) {
+void KnightTour::print_board()const {
+    for (const int(&arr)[8] : _board) {
         for (const int j : arr) {
             if (j == 0) {
                 std::cout << " . ";
