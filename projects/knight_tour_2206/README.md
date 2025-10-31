@@ -234,6 +234,95 @@ cppstruct [[nodiscard]] ErrorCode {
 #endif
 ```
 
+## `[[maybe_unused]]` (C++17)
+用于抑制未使用变量/参数/函数的编译器警告。
+```c++
+void process_data([[maybe_unused]] int debug_flag) {
+// debug_flag 在 release 版本可能不使用
+#ifdef DEBUG
+if (debug_flag) { /* ... */ }
+#endif
+}
+
+[[maybe_unused]] static void helper_function() {
+// 某些编译配置下可能不调用
+}
+```
+## `[[deprecated]]` (C++14)
+标记某个函数/类/变量为已弃用，可选附带提示信息。
+```c++
+[[deprecated("Use new_function() instead")]]
+void old_function() {
+    // 旧实现
+}
+
+[[deprecated]]
+class OldClass {
+    // ...
+};
+```
+## `[[fallthrough]]`(C++17)
+在switch-case语句中标记有意的`fallthrough`，避免编译器警告。
+```c++
+switch (value) {
+case 1:
+  do_something();
+  [[fallthrough]];  // 明确表示这是有意的
+case 2:
+    do_another_thing();
+    break;
+default:
+    handle_default();
+}
+```
+## `[[noreturn]]` (C++11)
+标记函数不会返回（如终止程序或抛异常）。
+```c++
+[[noreturn]] void fatal_error(const char* msg) {
+    std::cerr << "Fatal: " << msg << '\n';
+    std::exit(1);
+}
+
+[[noreturn]] void throw_error() {
+    throw std::runtime_error("Error");
+}
+
+```
+## `[[likely]]/[[unlikely]]` (C++20)
+提供分支预测提示，帮助编译器优化。
+```c++
+int process(int value) {
+    if (value > 0) [[likely]] {
+        // 大多数情况会走这个分支
+        return value * 2;
+    } else [[unlikely]] {
+        // 极少走到这里
+        return handle_error();
+    }
+}
+
+switch (type) {
+[[likely]] case Type::Common:
+    // 最常见的情况
+    break;
+[[unlikely]] case Type::Rare:
+    // 罕见情况
+    break;
+}
+```
+### 使用频率排序
+根据实际项目经验，使用频率大致为：
+1. `[[nodiscard]]` - 非常常用，提高代码安全性
+2. `[[maybe_unused]]` - 常用，处理条件编译
+3. `[[deprecated]]` - 常用，API 演化必备
+4. `[[fallthrough]]` - 中等，switch 语句相关
+5. `[[likely]]/[[unlikely]]` - 中等，性能关键代码
+6. `[[noreturn]]` - 较少，特定场景
+
+这些属性都是标准 C++ 的一部分，合理使用可以：
+- 提高代码可读性和意图表达
+- 帮助编译器进行更好的优化
+- 在编译期捕获潜在问题
 
 
 
