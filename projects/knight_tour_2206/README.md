@@ -185,6 +185,41 @@ important_function();  // 警告：忽略了返回值
 int result = important_function();  // 正常
 (void)important_function();         // 显式忽略，不会警告
 ```
+
+- 错误码返回
+```c++
+ cpp[[nodiscard]] bool openFile(const char* filename) {
+ // 如果忽略返回值，可能不知道文件是否打开成功
+ return true;
+ }
+```
+- 资源分配
+```c++
+cpp[[nodiscard]] void* allocate(size_t size) {
+   return malloc(size);  // 忽略返回值会导致内存泄漏
+}
+```   
+- 纯函数（无副作用）
+```c++
+cpp[[nodiscard]] int add(int a, int b) {
+    return a + b;  // 调用但不使用结果毫无意义
+}
+```
+- C++20扩展，允许添加说明信息
+```c++
+cpp[[nodiscard("检查错误码很重要")]]
+ErrorCode processData() {
+    return ErrorCode::Success;
+}
+```
+- 类型级别使用
+可以将整个类型标记为 nodiscard：
+```c++
+cppstruct [[nodiscard]] ErrorCode {
+    int code;
+};
+```
+
 ### 能否使用：
 - C++17及以后版本：完全支持
 - C++14及之前：不支持，会编译错误

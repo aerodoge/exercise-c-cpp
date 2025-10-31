@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 4.0)
-project(eight_queens_2206 C)
+project(eight_queens_2206)
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 20)
 
-add_executable(eight_queens eight_queens.c)
+add_executable(eight_queens_2206 main.cpp)
