@@ -190,6 +190,15 @@ int result = important_function();  // 正常
 - C++14及之前：不支持，会编译错误
 - 大多数现代编译器（GCC 7+, Clang 3.9+, MSVC 2017+）都支持
 
+如果你的代码需要兼容旧标准，可以用宏来条件编译：
+```c++
+#if __cplusplus >= 201703L
+#define NODISCARD [[nodiscard]]
+#else
+#define NODISCARD
+#endif
+```
+
 
 
 
