@@ -77,8 +77,8 @@ KnightTour::KnightTour(const int x, const int y) : _knight(x, y) {
 KnightTour::KnightTour() {}
 
 // 打印棋盘
-void KnightTour::print_board()const {
-    for (const int(&arr)[8] : _board) {
+void KnightTour::print_board() const {
+    for (const int (&arr)[8] : _board) {
         for (const int j : arr) {
             if (j == 0) {
                 std::cout << " . ";
@@ -137,15 +137,11 @@ void KnightTour::start() {
     std::cout << "开始骑士之旅..." << std::endl;
     std::cout << "初始棋盘:" << std::endl;
 
-    // 创建一个临时对象来演示
-    KnightTour tour(0, 0);
-    tour.print_board();
-
+    this->print_board();
     std::cout << "\n正在求解..." << std::endl;
-
-    if (tour.solve_tour(0, 0, 1)) {
+    if (this->solve_tour(this->_knight.x(), this->_knight.y(), 1)) {
         std::cout << "找到解决方案!" << std::endl;
-        tour.print_board();
+        this->print_board();
     } else {
         std::cout << "无解" << std::endl;
     }

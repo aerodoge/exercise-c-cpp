@@ -153,20 +153,43 @@ Timer t5{Timer{}}; // 明确的对象声明
   std::vector<std::string> words{std::istream_iterator<std::string>(file), std::istream_iterator<std::string>()};
 ```
 
-
-
-## clang format
+## clang-format
 `clang-format -i knight_tour.h`
 
 - 参数说明：
-  - -i : 就地修改文件（in-place）
-  - 如果没有.clang-format配置文件，会使用默认的LLVM风格
+  - `-i`: 就地修改文件（in-place）
+  - 如果没有`.clang-format`配置文件，会使用默认的LLVM风格
 
 - 如果要指定特定风格：
   - `clang-format -i --style=Google knight_tour.h`
 
 批量格式化多个文件：
   - `clang-format -i *.cpp *.h`
+
+
+## `[[nodiscard]]`
+C++17引入的一个属性（attribute），用于标记函数的返回值不应该被忽略。
+
+### 作用
+- 当函数被 [[nodiscard]] 标记时，如果调用者忽略了返回值，编译器会发出警告
+- 帮助防止因忽略重要返回值而导致的bug
+
+### 使用场景
+```c++
+[[nodiscard]] int important_function() { return 42; }
+
+// 这会产生编译器警告
+important_function();  // 警告：忽略了返回值
+
+// 正确用法
+int result = important_function();  // 正常
+(void)important_function();         // 显式忽略，不会警告
+```
+### 能否使用：
+- C++17及以后版本：完全支持
+- C++14及之前：不支持，会编译错误
+- 大多数现代编译器（GCC 7+, Clang 3.9+, MSVC 2017+）都支持
+
 
 
 

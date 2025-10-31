@@ -40,6 +40,9 @@ class Knight {
     // 右走2格，下走1格
     void right_down();
 
+    [[nodiscard]] int x() const { return _position._x; }
+    [[nodiscard]] int y() const { return _position._y; }
+
   private:
     Position _position;
 };
@@ -54,9 +57,9 @@ class KnightTour {
     // 打印棋盘
     void print_board() const;
     // 边界检查
-    bool valid_position(const int x, const int y) const;
+    [[nodiscard]] bool valid_position(const int x, const int y) const;
     // 能走该位置
-    bool can_visit(const int x, const int y) const;
+    [[nodiscard]] bool can_visit(const int x, const int y) const;
     // 求解骑士之旅
     bool solve_tour(const int x, const int y, const int steps);
     // 开始
