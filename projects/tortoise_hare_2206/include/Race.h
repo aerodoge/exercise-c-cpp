@@ -55,14 +55,14 @@ public:
     /**
      * @brief 打印当前赛道状态
      * @details 使用C++20 ranges库的iota视图遍历赛道，显示参赛者位置
-     *          如果两个参赛者在同一位置，则显示"OUCH!!!"（乌龟咬住兔子）
+     *          如果两个参赛者在同一位置，则显示"OUCH!!!"
      */
     void printTrack() const {
         const int pos1 = racer1->getPosition();
         const int pos2 = racer2->getPosition();
 
         if (pos1 == pos2) {
-            // 两者在同一位置，乌龟咬住兔子！
+            // 两者在同一位置
             std::cout << "OUCH!!! ";
             for (const int i : std::views::iota(1, FINISH_LINE + 1)) {
                 std::cout << (i == pos1 ? "OUCH!!!" : " ");
@@ -112,7 +112,7 @@ public:
             case Winner::Racer1:
                 // 参赛者1获胜
                 if (racer1->getName() == "Tortoise") {
-                    std::cout << "TORTOISE WINS!!! YAY!!!\n";  // 乌龟获胜！弱者的胜利！
+                    std::cout << "TORTOISE WINS!!! YAY!!!\n";  // 乌龟获胜！
                 } else {
                     std::cout << std::format("{} wins!\n", racer1->getName());
                 }
@@ -120,7 +120,7 @@ public:
             case Winner::Racer2:
                 // 参赛者2获胜
                 if (racer2->getName() == "Hare") {
-                    std::cout << "Hare wins. Yuch.\n";  // 兔子获胜（不太光彩）
+                    std::cout << "Hare wins. Yuch.\n";  // 兔子获胜
                 } else {
                     std::cout << std::format("{} wins!\n", racer2->getName());
                 }

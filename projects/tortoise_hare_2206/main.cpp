@@ -1,11 +1,3 @@
-/**
- * @file main.cpp
- * @brief 龟兔赛跑模拟程序 - 使用现代C++20特性实现
- * @details 模拟乌龟和兔子在70格赛道上的竞赛，使用随机数控制移动规则
- * @author Claude Code
- * @date 2025
- */
-
 #include "Tortoise.h"
 #include "Hare.h"
 #include "Race.h"
@@ -29,7 +21,7 @@ int main() {
         auto hare = std::make_unique<Hare>();
 
         // 创建比赛对象并运行
-        // 使用CTAD (类模板参数推导) - C++17特性
+        // 使用CTAD (类模板参数推导)
         Race race(std::move(tortoise), std::move(hare));
         race.run();
 
