@@ -2,6 +2,7 @@
 #define MAZE_TPP
 
 #include <iostream>
+#include <iomanip>
 #include <thread>
 #include <chrono>
 
@@ -29,16 +30,16 @@ bool Maze<N>::canVisit(const Position& pos) const noexcept {
 template<std::size_t N>
 void Maze<N>::display() const {
     std::cout << "\n步骤 " << steps_ << ":\n";
-    std::cout << "  ";
+    std::cout << "   ";  // 3个空格对齐
     for (std::size_t i = 0; i < N; ++i) {
-        std::cout << i << " ";
+        std::cout << std::setw(2) << std::setfill('0') << i << " ";
     }
     std::cout << "\n";
 
     for (std::size_t i = 0; i < N; ++i) {
-        std::cout << i << " ";
+        std::cout << std::setw(2) << std::setfill('0') << i << " ";
         for (std::size_t j = 0; j < N; ++j) {
-            std::cout << grid_[i][j] << " ";
+            std::cout << std::setw(2) << std::setfill(' ') << grid_[i][j] << " ";
         }
         std::cout << "\n";
     }
