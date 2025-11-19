@@ -1,7 +1,8 @@
 #pragma once
 
-#include <string>
 #include "VMContext.h"
+
+#include <string>
 
 /**
  * @file IInstruction.h
@@ -20,7 +21,8 @@
  * - Command 模式：将指令封装为对象
  * - Strategy 模式：不同的指令执行策略
  */
-class IInstruction {
+class IInstruction
+{
 public:
     virtual ~IInstruction() = default;
 
@@ -44,7 +46,7 @@ public:
      *
      * @return true 如果是跳转指令，false 否则
      *
-     * 跳转指令（BRANCH, BRANCHNEG, BRANCHZERO, HALT）会改变 PC
+     * 跳转指令（JMP, JMPNEG, JMPZERO, HALT）会改变 PC
      * 其他指令执行后 PC 自动递增
      */
     [[nodiscard]] virtual bool changesPC() const { return false; }

@@ -1,7 +1,8 @@
 #pragma once
 
-#include "VMContext.h"
 #include "InstructionFactory.h"
+#include "VMContext.h"
+
 #include <array>
 
 /**
@@ -27,10 +28,11 @@
  * 3. 执行（Execute）：调用对应的指令对象
  * 4. 更新 PC：跳转到下一条指令
  */
-class VirtualMachine {
+class VirtualMachine
+{
 private:
-    VMContext _context;                      // 虚拟机上下文（寄存器和内存）
-    const InstructionFactory& _factory;      // 指令工厂引用
+    VMContext context_;                 // 虚拟机上下文（寄存器和内存）
+    const InstructionFactory& factory_; // 指令工厂引用
 
     /**
      * @brief 执行单条指令（取指-解码-执行循环）

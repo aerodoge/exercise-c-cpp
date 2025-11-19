@@ -18,13 +18,13 @@ set(SOURCES
 
 # 收集所有头文件（可选，用于 IDE 显示）
 set(HEADERS
-    include/vm/OpCode.h
-    include/vm/VMContext.h
-    include/vm/IInstruction.h
-    include/vm/Instructions.h
-    include/vm/InstructionFactory.h
-    include/vm/VirtualMachine.h
-    include/vm/ProgramBuilder.h
+        include/OpCode.h
+        include/VMContext.h
+        include/IInstruction.h
+        include/Instructions.h
+        include/InstructionFactory.h
+        include/VirtualMachine.h
+        include/ProgramBuilder.h
 )
 
 # 创建可执行文件

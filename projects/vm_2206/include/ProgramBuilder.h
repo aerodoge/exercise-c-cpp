@@ -1,6 +1,7 @@
 #pragma once
 
 #include "VMContext.h"
+
 #include <array>
 
 /**
@@ -27,10 +28,11 @@
  *     .build();
  * @endcode
  */
-class ProgramBuilder {
+class ProgramBuilder
+{
 private:
-    std::array<int, VMContext::MEMORY_SIZE> program_{};  // 程序数组
-    size_t currentAddress_{0};                            // 当前写入地址
+    std::array<int, VMContext::MEMORY_SIZE> program_{}; // 程序数组
+    size_t currentAddress_{0};                          // 当前写入地址
 
 public:
     /**

@@ -1,10 +1,11 @@
 #pragma once
 
-#include "OpCode.h"
 #include "IInstruction.h"
-#include <unordered_map>
+#include "OpCode.h"
+
 #include <memory>
 #include <optional>
+#include <unordered_map>
 
 /**
  * @file InstructionFactory.h
@@ -26,7 +27,8 @@
  * - 使用 std::optional 安全返回可能不存在的指令
  * - 禁用拷贝和移动，确保单例唯一性
  */
-class InstructionFactory {
+class InstructionFactory
+{
 private:
     // 指令映射表：操作码 -> 指令对象
     std::unordered_map<OpCode, std::unique_ptr<IInstruction>> instructions_;
