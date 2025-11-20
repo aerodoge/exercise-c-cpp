@@ -136,6 +136,7 @@ git push origin main
 ### 实际示例
 
 **工作仓库 push:**
+
 ```bash
 cd ~/work/company-project
 git remote -v
@@ -148,6 +149,7 @@ git push origin main  # ✅ 自动使用工作账户的 key
 ```
 
 **个人仓库 push:**
+
 ```bash
 cd ~/personal/my-project
 git remote -v
@@ -194,26 +196,28 @@ git remote set-url origin git@github.com-work:company/repo.git
 
 ```ini
 [includeIf "gitdir:~/work/"]
-    path = ~/.gitconfig-work
-    
+path = ~/.gitconfig-work
+
 [includeIf "gitdir:~/personal/"]
-    path = ~/.gitconfig-personal
+path = ~/.gitconfig-personal
 ```
 
 然后创建对应的配置文件:
 
 **~/.gitconfig-work:**
+
 ```ini
 [user]
-    name = Your Work Name
-    email = work@company.com
+name = Your Work Name
+email = work@company.com
 ```
 
 **~/.gitconfig-personal:**
+
 ```ini
 [user]
-    name = Your Personal Name
-    email = personal@gmail.com
+name = Your Personal Name
+email = personal@gmail.com
 ```
 
 这样,在不同目录下的仓库会自动使用对应的用户信息,push 时只要 remote URL 配置正确,就会使用对应的 SSH key。
