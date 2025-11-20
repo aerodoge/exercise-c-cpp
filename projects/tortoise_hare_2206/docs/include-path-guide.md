@@ -38,6 +38,7 @@ include_directories(include)
 ```
 
 **优点**：
+
 - ✅ 简洁清晰
 - ✅ 符合C++标准库惯例（如 `#include <iostream>`）
 - ✅ 易于维护和重构
@@ -45,6 +46,7 @@ include_directories(include)
 - ✅ 跨平台兼容性好
 
 **工作原理**：
+
 1. 编译器遇到 `#include "Tortoise.h"`
 2. 首先在当前文件所在目录查找
 3. 没找到，则在 `include_directories()` 指定的目录中查找
@@ -61,6 +63,7 @@ include_directories(include)
 ```
 
 **缺点**：
+
 - ❌ 不同位置的源文件需要不同的相对路径
 - ❌ 目录结构改变时需要修改所有include语句
 - ❌ 代码冗长，可读性差
@@ -73,6 +76,7 @@ include_directories(include)
 ```
 
 **特点**：
+
 - 需要在CMake中配置：`include_directories(${CMAKE_SOURCE_DIR})`
 - 明确显示头文件位置
 - 但比方式1冗长
@@ -128,7 +132,7 @@ include_directories(include)
 
 ```cmake
 target_include_directories(tortoise_hare_2206
-    PRIVATE include
+        PRIVATE include
 )
 ```
 
@@ -141,7 +145,7 @@ target_include_directories(tortoise_hare_2206
 ```cmake
 set(PROJECT_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 target_include_directories(tortoise_hare_2206
-    PRIVATE ${PROJECT_INCLUDE_DIR}
+        PRIVATE ${PROJECT_INCLUDE_DIR}
 )
 ```
 
@@ -155,11 +159,12 @@ include_directories(include)
 
 # 推荐（只影响特定目标）
 target_include_directories(tortoise_hare_2206
-    PRIVATE ${CMAKE_SOURCE_DIR}/include
+        PRIVATE ${CMAKE_SOURCE_DIR}/include
 )
 ```
 
 **优势**：
+
 - 更好的模块化
 - 避免命名冲突
 - 便于维护大型项目

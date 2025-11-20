@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.0)
+cmake_minimum_required(VERSION 3.20)
 project(turtle_2206 C)
 
 set(CMAKE_C_STANDARD 11)

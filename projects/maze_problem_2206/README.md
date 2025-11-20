@@ -42,6 +42,7 @@
     从起点出发的所有通道都是连通的，形成一棵** 生成树** -起点可以到达所有被标记为通道的位置
 
     2. ** 出口智能放置**（BFS可达性检测）
+
    ```cpp
     // 1. 使用BFS从起点搜索所有可达位置
     auto reachable = find_reachable_positions(start);
@@ -150,6 +151,7 @@ exit = {exitInside.row, exitInside.col + 1};
 
                     * *
                 示例运行 * *：
+
 ```bash./ build /
                 maze_problem_2206
 
@@ -174,6 +176,7 @@ exit = {exitInside.row, exitInside.col + 1};
              ##代码特点
 
              ## #1. 类型安全 使用C++ 20 Concepts确保类型正确性：
+
 ```cpp template <typename T>
              concept Coordinate = requires(T t) {
         { t.row } -> std::convertible_to<int>;
@@ -182,12 +185,14 @@ exit = {exitInside.row, exitInside.col + 1};
 ```
 
 ### 2. 性能优化
+
 - 使用 `std::array` 替代原始数组
 - `constexpr` 编译期计算
 - `noexcept` 标记无异常函数
 - 移动语义优化
 
 ### 3. 代码可读性
+
 - 清晰的命名规范
 - 详细的注释说明
 - 模块化设计
@@ -196,10 +201,12 @@ exit = {exitInside.row, exitInside.col + 1};
 ## 算法复杂度
 
 ### 迷宫生成
+
 - **时间复杂度**: O(N²)，其中N为迷宫边长
 - **空间复杂度**: O(N²)，递归调用栈和visited数组
 
 ### 迷宫求解
+
 - **时间复杂度**: O(N²)，最坏情况需要遍历所有格子
 - **空间复杂度**: O(N²)，递归调用栈最坏情况
 
@@ -256,12 +263,14 @@ exit = {exitInside.row, exitInside.col + 1};
 ### 为什么100%有解？
 
 **数学证明**：
+
 1. 递归回溯生成的是**连通树结构**：从起点能到达所有通道
 2. BFS找到的是**真实可达位置**：这些位置从起点必然可达
 3. 出口在可达位置的**相邻格**：距离=1，一步可达
 4. **传递性**：起点→可达位置（✓） + 可达位置→出口（✓） = 起点→出口（✓）
 
 **测试验证**：
+
 ```bash
 #连续测试10次，100 % 成功
 测试1: 成功找到出口！总步数: 44

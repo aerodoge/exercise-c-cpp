@@ -41,17 +41,20 @@ vm_2206/
 ### 1. VMContext - 虚拟机上下文
 
 管理虚拟机的所有状态：
+
 - **寄存器**: 累加器、指令计数器、指令寄存器
 - **内存**: 100个存储单元（0-99）
 - **状态**: 运行标志
 
 **特性**:
+
 - 使用 C++20 Concepts 约束模板参数
 - 提供类型安全的内存访问接口
 
 ### 2. IInstruction - 指令接口
 
 采用 **Command 模式** 和 **Strategy 模式**：
+
 - 每个指令是独立的命令对象
 - 统一的执行接口
 - 支持查询指令是否改变程序计数器
@@ -61,14 +64,17 @@ vm_2206/
 #### 指令分类
 
 **I/O 指令**:
+
 - `ReadInstruction`: 从终端读取输入
 - `WriteInstruction`: 向终端输出
 
 **加载/存储指令**:
+
 - `LoadInstruction`: 内存 → 累加器
 - `StoreInstruction`: 累加器 → 内存
 
 **算术指令** (Template Method 模式):
+
 - `ArithmeticInstruction`: 抽象基类，定义通用流程
 - `AddInstruction`: 加法
 - `SubtractInstruction`: 减法
@@ -76,6 +82,7 @@ vm_2206/
 - `DivideInstruction`: 除法（带除零检查）
 
 **控制流指令**:
+
 - `BranchInstruction`: 无条件跳转
 - `BranchNegInstruction`: 负数条件跳转
 - `BranchZeroInstruction`: 零条件跳转
@@ -84,6 +91,7 @@ vm_2206/
 ### 4. InstructionFactory - 指令工厂
 
 采用 **Factory 模式** + **Singleton 模式**：
+
 - 单例确保全局唯一
 - 管理所有指令对象的生命周期
 - 使用 `std::unique_ptr` 自动管理内存
@@ -177,6 +185,7 @@ enum class OpCode : int {
 ```
 
 **优点**:
+
 - 类型安全，不能隐式转换
 - 避免命名冲突
 - 可指定底层存储类型
@@ -203,6 +212,7 @@ class AddInstruction : public IInstruction {
 ```
 
 **优点**:
+
 - 解耦调用者和接收者
 - 易于扩展新指令
 - 支持撤销/重做（可扩展）
@@ -221,6 +231,7 @@ public:
 ```
 
 **优点**:
+
 - 集中管理对象创建
 - 隐藏创建细节
 - 易于维护
@@ -246,6 +257,7 @@ public:
 ```
 
 **优点**:
+
 - 全局访问点
 - 节省资源
 - C++11 保证线程安全
@@ -277,6 +289,7 @@ protected:
 ```
 
 **优点**:
+
 - 复用通用流程
 - 扩展点明确
 - 减少代码重复
@@ -303,6 +316,7 @@ public:
 ```
 
 **优点**:
+
 - 流式 API，可读性强
 - 构建过程灵活
 - 不可变结果对象
@@ -353,6 +367,7 @@ echo -e "3\n6\n7" | ./build/vm_2206
 ```
 
 **执行流程**:
+
 1. 读取两个数 (如 10, 20)
 2. 加载第一个数到累加器 (acc = 10)
 3. 累加器加上第二个数 (acc = 30)
@@ -445,6 +460,7 @@ class VMContext {
 ### Q1: READ 指令和 cin 的关系？
 
 **A**:
+
 - **READ 指令** 是虚拟机的抽象命令："从外部读取数据"
 - **cin** 是实现这个命令的具体工具
 - 关系：READ 指令触发 cin 的调用
@@ -454,6 +470,7 @@ class VMContext {
 ### Q2: enum class 中的 `: int` 是什么意思？
 
 **A**:
+
 - **不是继承**！是指定底层存储类型
 - `enum class OpCode : int` 表示用 `int` 类型存储枚举值
 - 可以改成其他类型：`uint8_t`、`int64_t` 等
@@ -461,6 +478,7 @@ class VMContext {
 ### Q3: 为什么用 enum class 而不是 enum？
 
 **A**: `enum class` 更安全：
+
 - 类型安全，不能隐式转换
 - 有自己的作用域，避免命名冲突
 - 可以指定底层类型
@@ -478,6 +496,7 @@ int x = Color::RED;  // 错误！必须显式转换
 ### Q4: 为什么用这么多设计模式？
 
 **A**:
+
 - **Command**: 指令对象化，易于扩展
 - **Factory**: 集中管理创建，解耦
 - **Singleton**: 工厂唯一实例
@@ -487,6 +506,7 @@ int x = Color::RED;  // 错误！必须显式转换
 ### Q5: 如何添加新指令？
 
 **A**: 三步走：
+
 1. `OpCode.h` 定义操作码
 2. 创建指令类（继承 `IInstruction`）
 3. `InstructionFactory` 中注册
@@ -494,12 +514,14 @@ int x = Color::RED;  // 错误！必须显式转换
 ## 学习资源
 
 ### 相关概念
+
 - 冯·诺依曼架构
 - 指令集架构 (ISA)
 - 取指-解码-执行循环
 - 虚拟机实现原理
 
 ### C++ 特性
+
 - C++20 Concepts
 - std::optional
 - std::unique_ptr
@@ -507,6 +529,7 @@ int x = Color::RED;  // 错误！必须显式转换
 - [[nodiscard]]
 
 ### 设计模式
+
 - Command Pattern
 - Factory Pattern
 - Singleton Pattern
@@ -516,6 +539,7 @@ int x = Color::RED;  // 错误！必须显式转换
 ## 贡献指南
 
 欢迎贡献！可以：
+
 - 添加新指令
 - 优化性能
 - 改进文档

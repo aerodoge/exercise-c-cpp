@@ -52,6 +52,7 @@ context.setMemory(4, myObject);  // 自定义类型不满足 Numeric
 #### 2. 更好的错误信息
 
 **没有 Concepts (C++17)**:
+
 ```
 error: no matching function for call to 'setMemory'
   candidate template ignored: substitution failure...
@@ -59,6 +60,7 @@ error: no matching function for call to 'setMemory'
 ```
 
 **使用 Concepts (C++20)**:
+
 ```
 error: constraints not satisfied for 'setMemory<std::string>'
   because 'std::string' does not satisfy 'Numeric'
@@ -152,6 +154,7 @@ auto instruction = instructionOpt.value_or(nullptr);
 ### 为什么不用指针？
 
 **传统方法 (指针)**:
+
 ```cpp
 IInstruction* getInstruction(OpCode opcode) const {
     if (auto it = instructions_.find(opcode); it != instructions_.end()) {
@@ -166,6 +169,7 @@ instruction->execute(...);  // ← 可能崩溃！忘记检查 nullptr
 ```
 
 **std::optional 方法**:
+
 ```cpp
 std::optional<IInstruction*> getInstruction(OpCode opcode) const;
 
@@ -318,6 +322,7 @@ sizeof(BigCode) == 8;
 ### `: int` 不是继承！
 
 **常见误解**:
+
 ```cpp
 enum class OpCode : int { ... };  // ← 这不是继承！
 ```
@@ -374,6 +379,7 @@ if (auto it = instructions_.find(opcode); it != instructions_.end()) {
 ```
 
 **分解**:
+
 ```cpp
 // 等价于
 auto it = instructions_.find(opcode);
@@ -418,14 +424,14 @@ std::array<int, VMContext::MEMORY_SIZE> memory;
 
 ## 特性对比总结
 
-| 特性 | C++11/14/17 | C++20 | 本项目使用 |
-|------|-------------|-------|-----------|
-| **Concepts** | ✗ | ✓ | `Numeric` 约束 |
-| **std::optional** | ✗ (C++17) | 改进 | 指令查找 |
-| **[[nodiscard]]** | ✗ (C++17) | 增强 | 防止忽略返回值 |
-| **enum class** | ✓ (C++11) | - | `OpCode` 定义 |
-| **constexpr** | 基础 (C++11) | 增强 | 编译期常量 |
-| **[[maybe_unused]]** | ✗ (C++17) | - | 未使用参数 |
+| 特性                   | C++11/14/17 | C++20 | 本项目使用        |
+|----------------------|-------------|-------|--------------|
+| **Concepts**         | ✗           | ✓     | `Numeric` 约束 |
+| **std::optional**    | ✗ (C++17)   | 改进    | 指令查找         |
+| **[[nodiscard]]**    | ✗ (C++17)   | 增强    | 防止忽略返回值      |
+| **enum class**       | ✓ (C++11)   | -     | `OpCode` 定义  |
+| **constexpr**        | 基础 (C++11)  | 增强    | 编译期常量        |
+| **[[maybe_unused]]** | ✗ (C++17)   | -     | 未使用参数        |
 
 ---
 
