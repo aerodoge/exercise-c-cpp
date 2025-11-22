@@ -1,9 +1,40 @@
-.vscode
-.idea
-
+# Build directories
 build/
-cmake-build-debug/
+cmake-build-*/
 
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Compiled Object files
+*.o
+*.obj
+
+# Executables
+*.exe
+*.out
+*.app
+pocker_2206
+
+# macOS
+.DS_Store
+
+# Temporary files
+*.tmp
+*.log
+
+# Others
 *.pptx
+
+
 
 
